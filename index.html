@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>EUREKA AI · Think Differently</title>
+
+  <meta name="description" content="EUREKA AI — your intelligent discovery engine. Chat, debate, code, create. Think Differently.">
+  <meta name="theme-color" content="#8b5cf6">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="EUREKA AI">
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="apple-touch-icon" href="icon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.9/purify.min.js"></script>
+</head>
+<body>
+
+<!-- HOME SCREEN -->
+<div id="home-screen">
+
+  <!-- NAV -->
+  <nav class="hn">
+    <div class="hn-brand">
+      <div class="hn-logo">
+        <svg viewBox="0 0 32 32"><path d="M16 4a9 9 0 0 1 5.5 16.1l-.5.4V22a1 1 0 0 1-1 1h-8a1 1 0 0 1-1-1v-1.5l-.5-.4A9 9 0 0 1 16 4zm-3 20h6v1.5A.5.5 0 0 1 18.5 26h-5a.5.5 0 0 1-.5-.5V24zm0-3h6v1h-6v-1zm3-13a5 5 0 1 0 0 10A5 5 0 0 0 16 8zm0 2a3 3 0 0 1 0 6 3 3 0 0 1 0-6z"/></svg>
+      </div>
+      <span class="hn-name">EUREKA AI</span>
+    </div>
+    <div class="hn-btns">
+      <button class="hn-btn" id="nav-login-btn">Log in</button>
+      <button class="hn-btn primary" id="nav-signup-btn">Sign up free</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge"><div class="hero-badge-dot"></div> Your AI study assistant · Bring your own key</div>
+    <h1 class="hero-title">Meet <span>EUREKA AI</span>,<br>your study copilot</h1>
+    <p class="hero-sub">EUREKA AI tutors you through any subject — step-by-step explanations, instant flashcards, quizzes that actually grade you, and exam plans built around your calendar.</p>
+    <div class="hero-cta">
+      <button class="hcta main" id="hero-signup-btn">Get started for free</button>
+      <button class="hcta sec" id="hero-login-btn">I already have an account</button>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="features">
+      <div class="feat">
+        <div class="feat-icon">🎓</div>
+        <div class="feat-title">Tutor Mode</div>
+        <div class="feat-desc">Explanations that build from the basics, with analogies and check-questions — not just answers.</div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">🃏</div>
+        <div class="feat-title">Flashcards in a Tap</div>
+        <div class="feat-desc">Paste notes or name a topic — get a flip-card deck instantly, with mastery tracking.</div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">✅</div>
+        <div class="feat-title">Quizzes That Grade You</div>
+        <div class="feat-desc">Multiple-choice quizzes with instant feedback, explanations, and best-score tracking.</div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">📅</div>
+        <div class="feat-title">Exam Planner + Focus Timer</div>
+        <div class="feat-desc">Day-by-day study plans from any deadline, plus a built-in Pomodoro to keep you honest.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hfoot">© 2025 EUREKA AI · All conversations & your API key stay locally on your device</div>
+</div>
+
+<!-- SIGN UP OVERLAY -->
+<div class="auth-overlay hidden" id="signup-overlay">
+  <div class="auth-card">
+    <button class="auth-close" id="signup-close">×</button>
+    <div class="auth-logo">
+      <svg viewBox="0 0 32 32"><path d="M16 4a9 9 0 0 1 5.5 16.1l-.5.4V22a1 1 0 0 1-1 1h-8a1 1 0 0 1-1-1v-1.5l-.5-.4A9 9 0 0 1 16 4zm-3 20h6v1.5A.5.5 0 0 1 18.5 26h-5a.5.5 0 0 1-.5-.5V24zm0-3h6v1h-6v-1z"/></svg>
+    </div>
+    <div class="auth-title">Create your account</div>
+    <div class="auth-sub">Choose a username and password to get started with EUREKA AI.</div>
+    <div class="auth-field">
+      <label class="auth-label">Username</label>
+      <input class="auth-input" id="su-user" type="text" placeholder="e.g. explorer42" autocomplete="off" spellcheck="false">
+    </div>
+    <div class="auth-field">
+      <label class="auth-label">Password</label>
+      <input class="auth-input" id="su-pass" type="password" placeholder="At least 6 characters">
+    </div>
+    <div class="auth-field">
+      <label class="auth-label">Confirm Password</label>
+      <input class="auth-input" id="su-pass2" type="password" placeholder="Repeat your password">
+    </div>
+    <button class="auth-submit" id="su-submit">Create account</button>
+    <div class="auth-msg" id="su-msg"></div>
+    <div class="auth-switch">Already have an account? <a id="su-to-login">Log in</a></div>
+  </div>
+</div>
+
+<!-- LOGIN OVERLAY -->
+<div class="auth-overlay hidden" id="login-overlay">
+  <div class="auth-card">
+    <button class="auth-close" id="login-close">×</button>
+    <div class="auth-logo">
+      <svg viewBox="0 0 32 32"><path d="M16 4a9 9 0 0 1 5.5 16.1l-.5.4V22a1 1 0 0 1-1 1h-8a1 1 0 0 1-1-1v-1.5l-.5-.4A9 9 0 0 1 16 4zm-3 20h6v1.5A.5.5 0 0 1 18.5 26h-5a.5.5 0 0 1-.5-.5V24zm0-3h6v1h-6v-1z"/></svg>
+    </div>
+    <div class="auth-title">Welcome back</div>
+    <div class="auth-sub">Log in to continue your discoveries with EUREKA AI.</div>
+    <div class="auth-field">
+      <label class="auth-label">Username</label>
+      <input class="auth-input" id="li-user" type="text" placeholder="Your username" autocomplete="off" spellcheck="false">
+    </div>
+    <div class="auth-field">
+      <label class="auth-label">Password</label>
+      <input class="auth-input" id="li-pass" type="password" placeholder="Your password">
+    </div>
+    <button class="auth-submit" id="li-submit">Log in</button>
+    <div class="auth-msg" id="li-msg"></div>
+    <div class="auth-switch">Don't have an account? <a id="li-to-signup">Sign up free</a></div>
+  </div>
+</div>
+
+<!-- ONBOARDING: API KEY → MODEL -->
+<div id="onb-overlay" class="auth-overlay hidden">
+  <div class="auth-card onb-card">
+    <div class="onb-dots"><div class="onb-dot active"></div><div class="onb-dot"></div><div class="onb-dot"></div></div>
+
+    <div id="onb-step-key">
+      <div class="auth-title">Connect your AI key</div>
+      <div class="auth-sub">EUREKA runs on <strong>OpenRouter</strong> — one key unlocks DeepSeek, Llama, GPT-4o mini, Claude, Gemini and hundreds more. Your key is stored <strong>only on this device</strong> and never sent anywhere except OpenRouter.</div>
+      <div class="auth-field">
+        <label class="auth-label">OpenRouter API key</label>
+        <input class="auth-input" id="onb-key" type="password" placeholder="sk-or-v1-…" autocomplete="off" spellcheck="false">
+      </div>
+      <button class="auth-submit" id="onb-key-btn">Verify & continue</button>
+      <div class="auth-msg" id="onb-msg"></div>
+      <div class="auth-switch">No key yet? <a id="onb-get-key">Get a free key on OpenRouter →</a></div>
+    </div>
+
+    <div id="onb-step-model" class="hidden">
+      <div class="auth-title">Pick your model</div>
+      <div class="auth-sub">This becomes your default for every chat. You can change it anytime in Settings.</div>
+      <div id="onb-models" class="onb-models"></div>
+      <div class="auth-field" style="margin-top:12px">
+        <label class="auth-label">Or use any OpenRouter model ID</label>
+        <input class="auth-input" id="onb-custom-model" type="text" placeholder="e.g. qwen/qwen-2.5-72b-instruct" autocomplete="off" spellcheck="false">
+      </div>
+      <button class="auth-submit" id="onb-model-btn">Start exploring ✦</button>
+    </div>
+
+    <div id="onb-step-done" class="hidden">
+      <div class="auth-title">You're all set 🎉</div>
+      <div class="auth-sub">EUREKA is calibrated and ready. Ask anything.</div>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO ANIMATION -->
+<div id="intro">
+  <div class="ii">
+    <svg viewBox="0 0 32 32"><path d="M16 4a9 9 0 0 1 5.5 16.1l-.5.4V22a1 1 0 0 1-1 1h-8a1 1 0 0 1-1-1v-1.5l-.5-.4A9 9 0 0 1 16 4zm-3 20h6v1.5A.5.5 0 0 1 18.5 26h-5a.5.5 0 0 1-.5-.5V24zm0-3h6v1h-6v-1zm3-13a5 5 0 1 0 0 10A5 5 0 0 0 16 8zm0 2a3 3 0 0 1 0 6 3 3 0 0 1 0-6z"/></svg>
+  </div>
+  <div class="it">EUREKA AI</div>
+  <div class="is">Your intelligent discovery engine · Think Differently</div>
+  <div class="il"><div class="ilb"></div></div>
+</div>
+
+<!-- APP -->
+<div id="app" class="hidden">
+
+  <!-- MOBILE SIDEBAR BACKDROP -->
+  <div id="sidebar-backdrop"></div>
+
+  <!-- SIDEBAR -->
+  <div id="sidebar">
+    <div class="sbh">
+      <div class="brand">
+        <div class="blogo">
+          <svg viewBox="0 0 32 32"><path d="M16 4a9 9 0 0 1 5.5 16.1l-.5.4V22a1 1 0 0 1-1 1h-8a1 1 0 0 1-1-1v-1.5l-.5-.4A9 9 0 0 1 16 4zm-3 20h6v1.5A.5.5 0 0 1 18.5 26h-5a.5.5 0 0 1-.5-.5V24zm0-3h6v1h-6v-1zm3-13a5 5 0 1 0 0 10A5 5 0 0 0 16 8zm0 2a3 3 0 0 1 0 6 3 3 0 0 1 0-6z"/></svg>
+        </div>
+        <div>
+          <div class="bname">EUREKA AI</div>
+          <div class="bcredit">Think Differently</div>
+        </div>
+      </div>
+      <button id="new-project-btn" class="newbtn">
+        <svg viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+        New conversation
+      </button>
+    </div>
+
+    <!-- STUDY TOOLS -->
+    <div class="sbt">
+      <div class="sblbl">Study</div>
+      <div class="trow study-mode-row" id="study-mode-btn">
+        <svg viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"/></svg>
+        <span id="study-mode-label">Study Mode</span>
+      </div>
+      <div class="trow fc-btn-row" id="fc-btn">
+        <svg viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 01-1.125-1.125v-3.75zM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-8.25zM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-2.25z"/></svg>
+        Flashcards 🃏
+      </div>
+      <div class="trow quiz-btn-row" id="quiz-btn">
+        <svg viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"/></svg>
+        Quiz Me ❓
+      </div>
+      <div class="trow plan-btn-row" id="plan-btn">
+        <svg viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
+        Exam Planner 📅
+      </div>
+      <div class="trow timer-btn-row" id="timer-btn">
+        <svg viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span id="timer-btn-label">Focus Timer ⏱️</span>
+      </div>
+      <div class="sblbl" style="padding:10px 6px 7px">Also</div>
+      <label class="trow">
+        <svg viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13"/></svg>
+        Attach a file
+        <input type="file" id="file-input" accept=".txt,.md,.js,.ts,.py,.json,.html,.css,.csv">
+      </label>
+      <div id="fbadge"></div>
+      <div class="trow" id="mic-btn">
+        <svg viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"/></svg>
+        <span id="miclbl">Voice input</span>
+      </div>
+      <div class="trow code-mode-btn-row" id="code-mode-btn">
+        <svg viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"/></svg>
+        <span id="code-mode-label">Code Mode</span>
+      </div>
+      <div class="trow roast-btn-row" id="roast-btn">
+        <svg viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75s.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z"/></svg>
+        Roast my chats 🔥
+      </div>
+      <div class="trow debate-btn-row" id="debate-btn" style="color:#60a5fa">
+        <svg viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"/></svg>
+        <span id="debate-btn-label">Debate me ⚔️</span>
+      </div>
+      <div class="trow da-btn-row" id="da-btn">
+        <svg viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+        Devil's Advocate 😈
+      </div>
+      <div class="trow genz-btn-row" id="genz-btn">
+        <svg viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+        Gen-Z Converter ✨
+      </div>
+    </div>
+
+    <!-- NOTES / SCRATCH PAD -->
+    <div class="sbn">
+      <div class="nbh">
+        <span class="nbl">Scratch Pad</span>
+        <div class="nbs">
+          <select id="jw-font">
+            <option value="'Plus Jakarta Sans',sans-serif">Jakarta</option>
+            <option value="'Fira Code',monospace">Mono</option>
+            <option value="Georgia,serif">Serif</option>
+          </select>
+          <select id="jw-size">
+            <option value="12px">12</option>
+            <option value="13px" selected>13</option>
+            <option value="14px">14</option>
+            <option value="15px">15</option>
+          </select>
+        </div>
+      </div>
+      <div id="jw-editor" contenteditable="true" data-ph="Quick notes…"></div>
+    </div>
+
+    <!-- CONVERSATIONS -->
+    <div class="sbcv">
+      <div class="sblbl" style="padding:8px 14px 4px">Conversations</div>
+      <div class="csearch-wrap">
+        <svg viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 10.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z"/></svg>
+        <input id="conv-search" type="text" placeholder="Search conversations…  ⌘K" autocomplete="off" spellcheck="false">
+      </div>
+      <div id="projects-list"></div>
+    </div>
+
+    <!-- SIDEBAR FOOTER -->
+    <div class="sbf">
+      <div class="uav" id="sb-avatar">EU</div>
+      <div>
+        <div class="un" id="sb-name">User</div>
+        <div class="up" id="sb-email">Signed in</div>
+      </div>
+      <button class="logout-btn" id="logout-btn">Sign out</button>
+    </div>
+  </div>
+
+  <!-- MAIN CHAT AREA -->
+  <div class="cmain">
+    <div class="topbar">
+      <div class="tbl">
+        <button class="tibtn" id="sidebar-toggle-btn" title="Hide sidebar">
+          <svg viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"/></svg>
+        </button>
+        <div class="tbtitle" id="chat-title">EUREKA AI</div>
+        <span class="code-mode-badge hidden" id="code-mode-badge">⌨️ Code Mode</span>
+      </div>
+      <div class="tbr">
+        <button class="tibtn" id="regen-btn" title="Regenerate last response">
+          <svg viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"/></svg>
+        </button>
+        <button class="tibtn" id="export-btn" title="Export conversation">
+          <svg viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+        </button>
+        <span class="mbadge" id="mbadge">EUREKA AI</span>
+        <button class="tibtn" id="settings-btn" title="Settings">
+          <svg viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.28z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </button>
+        <button class="tibtn" id="voice-toggle" title="Toggle voice">
+          <svg viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div id="chat-container" aria-live="polite"></div>
+
+    <button id="scroll-btn" title="Scroll to bottom">
+      <svg viewBox="0 0 24 24" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
+    </button>
+
+    <div class="ia">
+      <div class="iw">
+        <textarea id="user-input" rows="1" placeholder="Message EUREKA AI…" autocomplete="off"></textarea>
+        <div class="iacts">
+          <button class="ibtn" id="attach-btn" title="Attach file">
+            <svg viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32"/></svg>
+          </button>
+          <button id="send-btn" title="Send">
+            <svg viewBox="0 0 24 24"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="ihint">EUREKA AI can make mistakes. Always verify important information.</div>
+    </div>
+  </div>
+</div>
+
+<!-- EXPORT MENU -->
+<div id="export-menu" class="hidden">
+  <button id="export-md">📝 Markdown (.md)</button>
+  <button id="export-txt">📄 Plain text (.txt)</button>
+</div>
+
+<!-- TOAST -->
+<div id="toast" role="status" aria-live="polite"></div>
+
+<!-- MODAL -->
+<div id="modal" class="hidden">
+  <div class="mbox"><button id="modal-close">×</button><div id="modal-body"></div></div>
+</div>
+
+<!-- SETTINGS MODAL -->
+<div id="settings-modal" class="hidden">
+  <div class="set-box">
+    <div class="set-header">
+      <span class="set-icon">⚙️</span>
+      <div class="set-title">Settings</div>
+      <button class="set-close" id="settings-close">×</button>
+    </div>
+    <div class="set-body">
+      <div class="set-section">
+        <div class="set-label">API key <span class="set-hint">stored only on this device</span></div>
+        <div class="set-keyrow">
+          <code id="set-key-now">No key set</code>
+        </div>
+        <input class="set-input" id="set-key" type="password" placeholder="Paste a new OpenRouter key to replace it (sk-or-…)" autocomplete="off" spellcheck="false">
+        <div class="set-linkrow"><a href="https://openrouter.ai/keys" target="_blank" rel="noopener">Manage keys on OpenRouter →</a></div>
+      </div>
+      <div class="set-section">
+        <div class="set-label">Default model</div>
+        <select class="set-input" id="set-model"></select>
+        <input class="set-input" id="set-model-custom" type="text" placeholder="…or any OpenRouter model ID (overrides the picker)" autocomplete="off" spellcheck="false" style="margin-top:8px">
+      </div>
+      <div class="set-section set-inline">
+        <label class="set-check">
+          <input type="checkbox" id="set-voice"> Speak responses aloud
+        </label>
+      </div>
+    </div>
+    <button class="set-save" id="set-save">Save settings</button>
+  </div>
+</div>
+
+<!-- DEBATE MODAL -->
+<div id="debate-modal" class="hidden">
+<div class="debate-setup-box">
+    <div class="debate-setup-header">
+      <span>⚔️</span>
+      <div class="debate-setup-title">Debate Me</div>
+      <button class="debate-setup-close" id="debate-modal-close">×</button>
+    </div>
+    <div class="debate-setup-body">
+      <p class="debate-setup-desc">State your position. EUREKA will argue the <strong>opposite side</strong> no matter what. You cannot win. That's the point.</p>
+      <input class="debate-setup-input" id="debate-topic-input" type="text" placeholder="e.g. Pineapple belongs on pizza" maxlength="120" autocomplete="off" />
+      <div class="debate-setup-examples">
+        <span>Try:</span>
+        <button class="debate-eg" data-t="Social media does more harm than good">Social media is harmful</button>
+        <button class="debate-eg" data-t="AI will replace most human jobs">AI will replace jobs</button>
+        <button class="debate-eg" data-t="Cats are better than dogs">Cats &gt; Dogs</button>
+      </div>
+    </div>
+    <button class="debate-setup-start" id="debate-start-btn">⚔️ Start the Debate</button>
+  </div>
+</div>
+
+<!-- FLASHCARDS MODAL -->
+<div id="fc-modal" class="hidden">
+  <div class="fc-box">
+    <div class="fc-header">
+      <span>🃏</span>
+      <div class="fc-title">Flashcards</div>
+      <button class="fc-close" id="fc-close">×</button>
+    </div>
+    <div id="fc-setup">
+      <div class="fc-body">
+        <div class="fc-row">Generate a deck from…</div>
+        <div class="fc-srcrow">
+          <button class="fc-src active" data-s="topic">🎯 Topic</button>
+          <button class="fc-src" data-s="notes">📝 My notes</button>
+          <button class="fc-src" data-s="chat">💬 This chat</button>
+        </div>
+        <div class="fc-field" id="fc-topic-field">
+          <label class="fc-label">Subject or topic</label>
+          <input class="fc-input" id="fc-topic" type="text" placeholder="e.g. Photosynthesis, WW2 causes, Spanish past tense" maxlength="120" autocomplete="off" spellcheck="false">
+        </div>
+        <div class="fc-field hidden" id="fc-notes-field">
+          <label class="fc-label">My notes (paste anything)</label>
+          <textarea class="fc-input" id="fc-notes" placeholder="Paste your lecture notes, textbook section, or summary here…" maxlength="6000" rows="6"></textarea>
+          <div class="fc-count"><span id="fc-chars">0</span>/6000</div>
+        </div>
+        <div class="fc-field hidden" id="fc-chat-field">
+          <div class="fc-note">Uses the visible messages of the current conversation as source material.</div>
+        </div>
+        <div class="fc-row2">
+          <div class="fc-label">Cards:</div>
+          <div class="fc-counts">
+            <button class="fc-num" data-n="6">6</button>
+            <button class="fc-num active" data-n="10">10</button>
+            <button class="fc-num" data-n="14">14</button>
+            <button class="fc-num" data-n="20">20</button>
+          </div>
+        </div>
+        <div id="fc-decks-wrap">
+          <div class="fc-decks-label">Saved decks</div>
+          <div id="fc-decks"></div>
+        </div>
+      </div>
+      <button class="fc-generate" id="fc-generate">🃏 Generate deck</button>
+    </div>
+    <div id="fc-study" class="hidden">
+      <div class="fc-study-head">
+        <div class="fc-deckname" id="fc-deckname"></div>
+        <div class="fc-progressbar"><div class="fc-progressfill" id="fc-progress"></div></div>
+        <div class="fc-progresstext" id="fc-progress-text"></div>
+      </div>
+      <div class="fc-cardstage">
+        <div class="fc-card" id="fc-card">
+          <div class="fc-card-inner">
+            <div class="fc-face fc-front"><div class="fc-eyebrow">QUESTION</div><div class="fc-cardtext" id="fc-front-text"></div><div class="fc-tap">tap card to flip</div></div>
+            <div class="fc-face fc-back"><div class="fc-eyebrow fc-eyebrow-back">ANSWER</div><div class="fc-cardtext" id="fc-back-text"></div><div class="fc-tap">tap to flip back</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="fc-navrow">
+        <button class="fc-navbtn" id="fc-prev">←</button>
+        <button class="fc-know" id="fc-know">✓ Got it</button>
+        <button class="fc-navbtn" id="fc-next">→</button>
+      </div>
+      <button class="fc-exit" id="fc-exit-study">↩ Back to decks</button>
+      <div class="fc-footer-spacer"></div>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ MODAL -->
+<div id="quiz-modal" class="hidden">
+  <div class="quiz-box">
+    <div class="quiz-header">
+      <span>❓</span>
+      <div class="quiz-title">Quiz Me</div>
+      <button class="quiz-close" id="quiz-close">×</button>
+    </div>
+    <div id="quiz-setup">
+      <div class="quiz-body">
+        <div class="quiz-row">Generate a quiz from…</div>
+        <div class="fc-srcrow">
+          <button class="fc-src active" data-quiz-s="topic">🎯 Topic</button>
+          <button class="fc-src" data-quiz-s="notes">📝 My notes</button>
+          <button class="fc-src" data-quiz-s="chat">💬 This chat</button>
+        </div>
+        <div class="fc-field" id="quiz-topic-field">
+          <label class="fc-label">Subject or topic</label>
+          <input class="fc-input" id="quiz-topic" type="text" placeholder="e.g. Cell biology, French verbs, Macroeconomics" maxlength="120" autocomplete="off" spellcheck="false">
+        </div>
+        <div class="fc-field hidden" id="quiz-notes-field">
+          <label class="fc-label">My notes (paste anything)</label>
+          <textarea class="fc-input" id="quiz-notes" placeholder="Paste your notes here…" maxlength="6000" rows="6"></textarea>
+          <div class="fc-count"><span id="quiz-chars">0</span>/6000</div>
+        </div>
+        <div class="fc-field hidden" id="quiz-chat-field">
+          <div class="fc-note">Quizzes you on the current conversation's content.</div>
+        </div>
+        <div class="fc-row2">
+          <div class="fc-label">Questions:</div>
+          <div class="fc-counts">
+            <button class="fc-num" data-qn="5">5</button>
+            <button class="fc-num active" data-qn="8">8</button>
+            <button class="fc-num" data-qn="12">12</button>
+          </div>
+        </div>
+        <div class="quiz-best" id="quiz-best"></div>
+      </div>
+      <button class="quiz-generate" id="quiz-generate">✅ Start quiz</button>
+    </div>
+    <div id="quiz-run" class="hidden">
+      <div class="quiz-run-head">
+        <div class="quiz-qnum" id="quiz-qnum">Question 1 of 8</div>
+        <div class="fc-progressbar quizbar"><div class="fc-progressfill" id="quiz-progress"></div></div>
+        <div class="quiz-score-chip" id="quiz-score-chip">0/8</div>
+      </div>
+      <div class="quiz-q" id="quiz-q"></div>
+      <div id="quiz-opts"></div>
+      <div class="quiz-expl hidden" id="quiz-expl"></div>
+      <button class="quiz-next" id="quiz-next" style="display:none">Next →</button>
+      <div class="fc-footer-spacer"></div>
+    </div>
+    <div id="quiz-result" class="hidden">
+      <div class="quiz-result-score" id="quiz-result-score"></div>
+      <div class="quiz-result-msg" id="quiz-result-msg"></div>
+      <div class="quiz-result-sub" id="quiz-result-sub"></div>
+      <div class="quiz-result-actions">
+        <button class="quiz-again" id="quiz-again">🔁 Again</button>
+        <button class="quiz-done" id="quiz-done">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXAM PLANNER MODAL -->
+<div id="plan-modal" class="hidden">
+  <div class="plan-box">
+    <div class="plan-header">
+      <span>📅</span>
+      <div class="plan-title">Exam Planner</div>
+      <button class="plan-close" id="plan-close">×</button>
+    </div>
+    <div id="plan-setup">
+      <div class="plan-body">
+        <div class="fc-row">Plan my prep for…</div>
+        <div class="fc-field">
+          <label class="fc-label">Subject / exam</label>
+          <input class="fc-input" id="plan-subject" type="text" placeholder="e.g. Organic Chemistry final" maxlength="100" autocomplete="off" spellcheck="false">
+        </div>
+        <div class="fc-row2">
+          <div class="fc-field" style="flex:1;margin:0">
+            <label class="fc-label">Exam date</label>
+            <input class="fc-input" id="plan-date" type="date">
+          </div>
+          <div class="fc-field" style="flex:1;margin:0">
+            <label class="fc-label">Minutes/day</label>
+            <input class="fc-input" id="plan-mins" type="number" min="15" max="480" step="15" value="60">
+          </div>
+        </div>
+        <div class="fc-field">
+          <div class="fc-label">Current level</div>
+          <div class="fc-srcrow" style="margin-top:6px">
+            <button class="fc-src active" data-level="beginner">🌱 Beginner</button>
+            <button class="fc-src" data-level="intermediate">⚡ Intermediate</button>
+            <button class="fc-src" data-level="advanced">🔥 Advanced</button>
+          </div>
+        </div>
+        <div class="fc-field" style="margin-top:12px">
+          <label class="fc-label">Topics to cover (optional)</label>
+          <textarea class="fc-input" id="plan-topics" placeholder="e.g. stoichiometry, thermodynamics — leave blank to let EUREKA decide" maxlength="500" rows="2"></textarea>
+        </div>
+        <div class="plan-existing" id="plan-existing"></div>
+      </div>
+      <button class="plan-generate" id="plan-generate">📅 Build my plan</button>
+      <div class="plan-copybtnrow"><button id="plan-copy" style="display:none">📋 Copy plan</button></div>
+    </div>
+    <div id="plan-result" class="hidden">
+      <div class="plan-result-head">📅 Your study plan for <strong id="plan-result-subject"></strong></div>
+      <div class="plan-result-content" id="plan-result-content"></div>
+      <div class="plan-result-actions">
+        <button class="plan-again" id="plan-again">↩ Adjust & rebuild</button>
+        <button class="plan-done" id="plan-done">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOCUS TIMER BAR -->
+<div id="timer-bar" class="hidden">
+  <div class="timer-icon">⏱️</div>
+  <div class="timer-mid">
+    <div class="timer-time" id="timer-time">25:00</div>
+    <div class="timer-state" id="timer-state">Focus · 25 min</div>
+  </div>
+  <button class="timer-btns" id="timer-pause">⏸</button>
+  <button class="timer-btns" id="timer-stop">✕</button>
+</div>
+<!-- ROAST MODAL -->
+<div id="roast-modal" class="hidden">
+  <div class="roast-box">
+    <div class="roast-header">
+      <div class="roast-fire">🔥</div>
+      <div class="roast-title">EUREKA's Verdict</div>
+      <button class="roast-close" id="roast-close">×</button>
+    </div>
+    <div class="roast-content" id="roast-content">
+      <div class="roast-loading" id="roast-loading">
+        <div class="roast-dots"><div></div><div></div><div></div></div>
+        <div>EUREKA is reading your chats and judging you…</div>
+      </div>
+      <div class="roast-text" id="roast-text" style="display:none"></div>
+    </div>
+    <button class="roast-again" id="roast-again" style="display:none">🔥 Roast me again</button>
+  </div>
+</div>
+
+<!-- DEVIL'S ADVOCATE MODAL -->
+<div id="da-modal" class="hidden">
+  <div class="da-box">
+    <div class="da-header">
+      <span class="da-icon">😈</span>
+      <div class="da-title">Devil's Advocate</div>
+      <button class="da-close" id="da-close">×</button>
+    </div>
+    <div class="da-body">
+      <p class="da-desc">Share your idea, plan, or decision. EUREKA will find <strong>every flaw, risk, and reason it could fail</strong>. No sugarcoating.</p>
+      <textarea class="da-input" id="da-input" placeholder="e.g. I want to drop out of college and start a startup…" maxlength="800" rows="4"></textarea>
+      <div class="da-charcount"><span id="da-chars">0</span>/800</div>
+    </div>
+    <button class="da-submit" id="da-submit">😈 Tear it apart</button>
+  </div>
+</div>
+
+<!-- DEVIL'S ADVOCATE RESULT MODAL -->
+<div id="da-result-modal" class="hidden">
+  <div class="da-result-box">
+    <div class="da-result-header">
+      <span class="da-icon">😈</span>
+      <div class="da-title">EUREKA's Pre-Mortem</div>
+      <button class="da-close" id="da-result-close">×</button>
+    </div>
+    <div class="da-result-content" id="da-result-content">
+      <div class="da-loading" id="da-loading">
+        <div class="roast-dots"><div></div><div></div><div></div></div>
+        <div>EUREKA is finding every way this could go wrong…</div>
+      </div>
+      <div class="da-result-text" id="da-result-text" style="display:none"></div>
+    </div>
+    <div class="da-result-footer" id="da-result-footer" style="display:none">
+      <button class="da-again" id="da-again">😈 Tear apart another idea</button>
+    </div>
+  </div>
+</div>
+
+<!-- GEN-Z CONVERTER MODAL -->
+<div id="genz-modal" class="hidden">
+  <div class="genz-box">
+    <div class="genz-header">
+      <span>✨</span>
+      <div class="genz-title">Gen-Z Converter</div>
+      <button class="genz-close" id="genz-close">×</button>
+    </div>
+    <div class="genz-body">
+      <div class="genz-level-row">
+        <span class="genz-level-label">Vibe level:</span>
+        <div class="genz-levels">
+          <button class="genz-lvl" data-l="1">🙂 Mild</button>
+          <button class="genz-lvl active" data-l="2">😎 Mid</button>
+          <button class="genz-lvl" data-l="3">🔥 Cooked</button>
+          <button class="genz-lvl" data-l="4">💀 No cap</button>
+          <button class="genz-lvl" data-l="5">🗿 Unalived</button>
+        </div>
+      </div>
+      <div class="genz-panels">
+        <div class="genz-panel">
+          <div class="genz-panel-label">Paste your boring text</div>
+          <textarea class="genz-input" id="genz-input" placeholder="e.g. I was very tired and did not want to attend the meeting today…" maxlength="1000" rows="6"></textarea>
+          <div class="genz-charcount"><span id="genz-chars">0</span>/1000</div>
+        </div>
+        <div class="genz-panel">
+          <div class="genz-panel-label">Gen-Z translation <span id="genz-output-label"></span></div>
+          <div class="genz-output" id="genz-output">
+            <div class="genz-placeholder">Your slay translation will appear here fr fr…</div>
+          </div>
+          <button class="genz-copy" id="genz-copy" style="display:none">Copy ✨</button>
+        </div>
+      </div>
+    </div>
+    <button class="genz-submit" id="genz-submit">✨ No cap, translate this</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script src="study.js"></script>
+</body>
+</html>

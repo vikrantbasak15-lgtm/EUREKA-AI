@@ -1,0 +1,19 @@
+{
+  "name": "EUREKA AI",
+  "short_name": "EUREKA",
+  "description": "Your intelligent discovery engine. Chat, debate, code, create — with your choice of AI models.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0b0914",
+  "theme_color": "#8b5cf6",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
